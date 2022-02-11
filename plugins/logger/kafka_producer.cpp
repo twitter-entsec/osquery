@@ -201,12 +201,12 @@ void KafkaProducerPlugin::init(const std::string& name,
     const auto& root = parser->getData().doc()[kKafkaConfigParserRootKey];
     if (!root.IsNull()) {
       for (const auto& s : root.GetObject()) {
-        if (!setConf(conf, s.name.GetString(), s.value.GetString()) {
-          return
+        if (!setConf(conf, s.name.GetString(), s.value.GetString())) {
+          return;
         }
       }
-      if (!setConf(conf, "client.id", hostname) {
-        return
+      if (!setConf(conf, "client.id", hostname)) {
+        return;
       }
     }
   } else {
