@@ -20,6 +20,7 @@ function(generatePluginsConfigParsers)
     events_parser.cpp
     feature_vectors.cpp
     file_paths.cpp
+    kafka_config.cpp
     kafka_topics.cpp
     logger.cpp
     options.cpp
@@ -46,6 +47,7 @@ function(generatePluginsConfigParsers)
     auto_constructed_tables.h
     decorators.h
     feature_vectors.h
+    kafka_config.h
     kafka_topics.h
     logger.h
     prometheus_targets.h

@@ -30,6 +30,7 @@
 #include <osquery/core/system.h>
 #include <osquery/utils/json/json.h>
 
+#include <plugins/config/parsers/kafka_config.h>
 #include <plugins/config/parsers/kafka_topics.h>
 #include <plugins/logger/kafka_producer.h>
 
