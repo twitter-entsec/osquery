@@ -194,21 +194,37 @@ void KafkaProducerPlugin::init(const std::string& name,
     setConf(conf, "debug", "all");
   }
 
-  if (!boost::algorithm::ifind_first(FLAGS_logger_kafka_brokers, "ssl://")
-           .empty()) {
-    if (!setConf(conf, "security.protocol", "ssl") ||
-        !setConf(conf, "ssl.cipher.suites", kTLSCiphers) ||
-        !setConf(conf, "ssl.ca.location", FLAGS_tls_server_certs) ||
-        !setConf(conf, "ssl.key.location", FLAGS_tls_client_key) ||
-        !setConf(conf, "ssl.certificate.location", FLAGS_tls_client_cert)) {
+  auto parser = Config::getParser("kafka_config");
+
+  if (parser != nullptr || parser.get() != nullptr) {
+    const auto& root = parser->getData().doc()[kKafkaConfigParserRootKey];
+    if (!root.IsNull()) {
+      for (const auto& s : root.GetObject()) {
+        if (!setConf(conf, s.name.GetString(), s.value.GetString()) {
+          return
+        }
+      }
+      if (!setConf(conf, "client.id", hostname) {
+        return
+      }
+    }
+  } else {
+    if (!boost::algorithm::ifind_first(FLAGS_logger_kafka_brokers, "ssl://")
+            .empty()) {
+      if (!setConf(conf, "security.protocol", "ssl") ||
+          !setConf(conf, "ssl.cipher.suites", kTLSCiphers) ||
+          !setConf(conf, "ssl.ca.location", FLAGS_tls_server_certs) ||
+          !setConf(conf, "ssl.key.location", FLAGS_tls_client_key) ||
+          !setConf(conf, "ssl.certificate.location", FLAGS_tls_client_cert)) {
+        return;
+      }
+    }
+
+    if (!setConf(conf, "client.id", hostname) ||
+        !setConf(conf, "bootstrap.servers", FLAGS_logger_kafka_brokers) ||
+        !setConf(conf, "compression.codec", FLAGS_logger_kafka_compression)) {
       return;
     }
-  }
-
-  if (!setConf(conf, "client.id", hostname) ||
-      !setConf(conf, "bootstrap.servers", FLAGS_logger_kafka_brokers) ||
-      !setConf(conf, "compression.codec", FLAGS_logger_kafka_compression)) {
-    return;
   }
 
   // Register send callback.
