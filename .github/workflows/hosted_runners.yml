@@ -22,6 +22,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'kafka_sasl'
 
     tags:
       - '*'
