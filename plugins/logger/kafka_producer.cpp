@@ -196,7 +196,7 @@ void KafkaProducerPlugin::init(const std::string& name,
   }
 
   if (!boost::algorithm::ifind_first(FLAGS_logger_kafka_brokers, "ssl://")
-          .empty()) {
+        .empty()) {
     if (!setConf(conf, "security.protocol", "ssl") ||
         !setConf(conf, "ssl.cipher.suites", kTLSCiphers) ||
         !setConf(conf, "ssl.ca.location", FLAGS_tls_server_certs) ||
