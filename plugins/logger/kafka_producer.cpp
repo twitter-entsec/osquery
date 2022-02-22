@@ -215,13 +215,12 @@ void KafkaProducerPlugin::init(const std::string& name,
   auto parser = Config::getParser("kafka_config");
 
   if (parser != nullptr || parser.get() != nullptr) {
-    LOG(WARNING)
-                << "Query names for a topic must be in JSON array format";
+    LOG(WARNING) << "Query names for a topic must be in JSON array format";
     const auto& root = parser->getData().doc()[kKafkaConfigParserRootKey];
     if (!root.IsNull()) {
       for (const auto& s : root.GetObject()) {
-        LOG(WARNING)
-                << "Setting '" << s.name.GetString() <<"' '" << s.value.GetString() << "'";
+        LOG(WARNING) << "Setting '" << s.name.GetString() << "' '"
+                     << s.value.GetString() << "'";
         if (!setConf(conf, s.name.GetString(), s.value.GetString())) {
           return;
         }
