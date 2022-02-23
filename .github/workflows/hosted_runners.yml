@@ -62,8 +62,10 @@ jobs:
 
     - name: Install libsasl2-dev package
       run: |
-        sudo apt update
-        sudo apt install -y git-buildpackage debhelper zlib1g-dev libssl-dev libsasl2-dev liblz4-dev libsasl2-modules-gssapi-mit
+        apt update
+        export DEBIAN_FRONTEND=noninteractive
+        apt install -y tzdata
+        apt install -y git-buildpackage debhelper zlib1g-dev libssl-dev libsasl2-dev liblz4-dev libsasl2-modules-gssapi-mit
 
 
     # This script makes sure that the copyright headers have been correctly
