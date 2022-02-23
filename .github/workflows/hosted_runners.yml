@@ -60,6 +60,12 @@ jobs:
     - name: Clone the osquery repository
       uses: actions/checkout@v1
 
+    - name: Install libsasl2-dev package
+      run: |
+        sudo apt update
+        sudo apt -y install libsasl2-dev
+
+
     # This script makes sure that the copyright headers have been correctly
     # placed on all the source code files
     - name: Check the copyright headers
