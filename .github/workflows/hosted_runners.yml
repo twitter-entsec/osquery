@@ -63,7 +63,7 @@ jobs:
     - name: Install libsasl2-dev package
       run: |
         sudo apt update
-        sudo apt install libsasl2-dev libssl-dev libsasl2-modules-gssapi-mit -y
+        sudo apt install -y git-buildpackage debhelper zlib1g-dev libssl-dev libsasl2-dev liblz4-dev cyrus-sasl-gssapi
 
 
     # This script makes sure that the copyright headers have been correctly
